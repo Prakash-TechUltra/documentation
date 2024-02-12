@@ -1,121 +1,187 @@
 :show-content:
-:hide-page-toc:
 
 ====================
 Marketing Automation
 ====================
 
-The Odoo *Marketing Automation* app automates a variety of marketing tasks by combining specific
-rules and filters to generate timed actions. Instead of manually having to build each stage of a
-campaign (like a series of timed massmails), the *Marketing Automation* app allows marketers to
-build the entire campaign, and all of its stages, in one place---on one dashboard.
+The Odoo *Marketing Automation* application unlocks a range of actions that can be automated within
+an Odoo database. While the application is designed to be user-friendly for quickly creating,
+launching, and reviewing marketing campaigns, it also provides advanced features to automate manual
+and repetitive tasks throughout the database.
+
+*Marketing Automation* enables users to create dynamic campaigns with actions that automatically
+occur within a defined duration, such as sending a series of timed mass emails or engaging with
+leads based on their interactions.
+
+Get started by creating a :ref:`new campaign from scratch or with a campaign template
+<marketing_automation/campaigns>`.
 
 .. seealso::
    `Odoo Tutorials: Marketing <https://www.odoo.com/slides/marketing-27>`_
 
-Campaign configuration
-======================
+.. cards::
 
-To create a new automated marketing campaign, navigate to :menuselection:`Marketing Automation app
---> New` to reveal a blank campaign form.
+   .. card:: Target an audience
+      :target: marketing_automation/target_audience
 
-.. image:: marketing_automation/blank-marketing-campaign-form.png
-   :align: center
-   :alt: A blank marketing automation campaign form in Odoo Marketing Automation application.
+      Configure the target audience for a campaign.
 
-After entering a name for the marketing campaign, configure the target audience in the remaining
-fields.
+   .. card:: Workflow activities
+      :target: marketing_automation/workflow_activities
 
-A target audience can be configured by entering specific criteria for Odoo to use when determining
-to whom this marketing automation campaign should be sent.
+      Define the activities that occur within a campaign.
 
-In the :guilabel:`Target` field, use the drop-down menu to choose which model the target audience
-filters should be based on (e.g. :guilabel:`Contact`, :guilabel:`Lead/Opportunity`,
-:guilabel:`Sales Order`, etc.).
+   .. card:: Testing/running campaigns
+      :target: marketing_automation/testing_running
 
-Select :guilabel:`Search More...` from the drop-down menu to reveal a :guilabel:`Search: Target`
-pop-up window containing all of the available targeting options.
+      Launch a test or run a campaign.
 
-Once a :guilabel:`Target` is selected, there's a :guilabel:`Unicity based on` field. This field is
-used to avoid duplicates based on the model chosen in the :guilabel:`Target` field.
+   .. card:: Campaign metrics
+      :target: marketing_automation/understanding_metrics
 
-.. example::
-   If :guilabel:`Customers` is chosen as the :guilabel:`Target`, select :guilabel:`Email` in the
-   :guilabel:`Unicity based on` field so Odoo only processes one record for each customer email
-   address.
+      Review the metrics of a campaign.
 
-Select :guilabel:`Search More...` from the :guilabel:`Unicity based on` drop-down menu to reveal all
-available options in a pop-up window.
+Configuration
+=============
 
-Last on the campaign form is the :guilabel:`Filter` field. This is where more specific targeting
-options can be layered into the campaign to further narrow the number and type of recipients that
-receive the marketing automation material.
+To install the *Marketing Automation* application, navigate to :menuselection:`Apps` and search for
+`Marketing Automation`. In the list of results, click the :guilabel:`Activate` button on the
+:guilabel:`Marketing Automation` application to install it.
 
-If left alone, the :guilabel:`Filter` field reads: :guilabel:`Match all records`. That means Odoo
-uses the :guilabel:`Target` and :guilabel:`Unicity based on` fields to determine who the recipients
-will be. The number of recipients is represented beneath as :guilabel:`record(s)`.
+.. important::
+   Installing the *Marketing Automation* application also installs the :doc:`Email Marketing
+   <email_marketing>` application as dependency.
 
-Campaign filter rules
----------------------
+   Additionally, install the :doc:`CRM <../sales/crm>` and :doc:`SMS Marketing <sms_marketing>`
+   applications to access all of the features available in *Marketing Automation*.
 
-To add a more specific filter to a marketing automation campaign, click the :guilabel:`Add
-condition` button in the :guilabel:`Filter` field. Doing so reveals a series of other configurable
-filter rule fields.
+   The following documentation assumes that all three of these dependencies are installed on the
+   database.
 
-In the rule fields, customizable equations can be configured for Odoo to use when filtering who to
-include or exclude in this specific marketing campaign.
+.. _marketing_automation/campaigns:
 
-.. image:: marketing_automation/filter-node-equation-fields.png
-   :align: center
-   :alt: How the filter rule equation fields look in Odoo Marketing Automation campaigns.
+Campaigns
+=========
 
-.. note::
-   :guilabel:`Records` refer to contacts in the system that fit the specified criteria for a
-   campaign.
+A *campaign* consists of a target audience and a workflow containing activities that are
+automatically executed to a specific group of records based on predefined filters, triggers and
+durations of activities.
 
-Also, once :guilabel:`Add condition` is clicked, the ability to :guilabel:`Save as Favorite Filter`
-becomes available on the campaign form.
+A new campaign can be created from scratch or from a template. To create a campaign, navigate to the
+:menuselection:`Marketing Automation` application from the main Odoo dashboard to open the
+:guilabel:`Campaigns` dashboard. From here, click the :guilabel:`New` button to reveal a new
+campaign form.
 
-There is also the option to match records with :guilabel:`all` or :guilabel:`any` of the rules
-configured in the :guilabel:`Filter` field.
+.. _marketing-automation/campaign-templates:
 
-To choose either of those options, click :guilabel:`all` from the middle of the sentence
-":guilabel:`Match records with all of the following rules`" to reveal a drop-down menu with those
-options.
+Campaign templates
+------------------
 
-.. image:: marketing_automation/match-all-any-rules-drop-down.png
-   :align: center
-   :alt: Match records with all or any of the rules in Filter field for marketing campaigns.
+Odoo provides six campaign templates to help users get started. The campaign template cards only
+display while there are no existing campaigns in the database. Once a campaign has been created, the
+template cards on the *Campaigns* dashboard are replaced with a Kanban view of the existing
+campaigns.
 
-When the first field of the rule equation is clicked, a nested drop-down menu of options appears on
-the screen where specific criteria is chosen based on needs of the campaign.
+To get started with a template, navigate to the :menuselection:`Marketing Automation` application
+from the main Odoo dashboard to open the :guilabel:`Campaigns` dashboard, which displays six
+campaign template cards:
 
-The remaining fields on the rule equation further define the criteria, which is used to determine
-which records in the database to include or exclude in the execution of the campaign.
+- | :guilabel:`Tag Hot Contacts`
+  | :guilabel:`Send a welcome email to contacts and tag them if they click it.`
+- | :guilabel:`Welcome Flow`
+  | :guilabel:`Send a welcome email to new subscribers, remove the address that bounced.`
+- | :guilabel:`Double Opt-in`
+  | :guilabel:`Send an email to new recipients to confirm their consent.`
+- | :guilabel:`Commercial prospection`
+  | :guilabel:`Send a free catalog and follow-up according to reactions.`
+- | :guilabel:`Schedule Calls`
+  | :guilabel:`If a lead is created for existing contact, schedule a call with their salesperson.`
+- | :guilabel:`Prioritize Hot leads`
+  | :guilabel:`Send an email to new leads and assign them a high priority if they open it.`
 
-To add another rule, either click the :guilabel:`➕ (plus sign)` icon to the right of the filtering
-rule, or click :guilabel:`New Rule` beneath the rule equation fields. When either are clicked, a new
-series of rule fields appears.
+These templates are designed to be used as starting points for creating new campaigns. Click one of
+the template cards to open the campaign form.
 
-To add a branch of multiple rules at the same time, click the :guilabel:`branch` icon, located to
-the right of the :guilabel:`➕ (plus sign)` icon. When clicked, two additional sub-rule equation
-fields appear beneath the initial rule.
+.. tip::
+   To display the campaign template cards again after a campaign has been created, type the name of
+   a campaign that does not exist in the database into the :guilabel:`Search...` bar, then press
+   :kbd:`Enter`.
 
-.. image:: marketing_automation/rule-branch-filter-sample.png
-   :align: center
-   :alt: Sample of how the rule branches look in the filter section of a marketing campaign.
+   For example, searching for `empty` displays the campaign template cards again as long as there is
+   not a campaign with the name "empty" in the database.
 
-There is also the option to have the filter apply to :guilabel:`any` or :guilabel:`all` of the
-configured branch rules.
+Targets & filters
+=================
 
-For further information on marketing automation campaign filter configuration, refer to the
-:doc:`marketing_automation/target_audience` documentation.
+The *Target* and *Filter* section of the campaign form, also referred to as the domain, contains the
+fields used to define the target audience for the campaign's reach (i.e., records).
+
+Records
+-------
+
+The contacts in the system that fit the specified criteria for a campaign are referred to as
+*records*.
+
+The number of records that are displayed next to the campaign *Filter* represents the total number
+of records the campaign is targeting.
+
+Participants
+------------
+
+The records that are engaged by the campaign are referred to as *participants*.
+
+The number of participants engaged in a test run are shown in the *Tests #* smart button. The number
+of participants engaged in a running or stopped campaign are shown in the *Participants #* smart
+button.
 
 .. seealso::
-   - :doc:`marketing_automation/target_audience`
-   - :doc:`marketing_automation/workflow_activities`
-   - :doc:`marketing_automation/testing_running`
-   - :doc:`marketing_automation/understanding_metrics`
+   :doc:`marketing_automation/target_audience`
+
+Workflow
+========
+
+A *workflow* consists of an activity, many activities, and/or a sequence of activities organized in
+a campaign. A campaign's workflow is defined in the *Workflow* section of the *Campaign* form.
+
+Activities
+----------
+
+*Activities* are the methods of communication or server actions, organized in a *Workflow*, that are
+executed within a campaign. Once running, each activity displays the number of participants that
+are engaged by the activity as *Success* and *Rejected* counts.
+
+The following are the available activities in the *Marketing Automation* application:
+
+- *Email*: send an email to the target audience.
+- *SMS*: send an SMS to the target audience.
+- *Server Action*: executes an automated action.
+
+.. seealso::
+   :doc:`marketing_automation/workflow_activities`
+
+Testing & running
+=================
+
+Once a campaign has been created, it can be tested to ensure the workflow is functioning as
+expected. After testing, the campaign can be launched to start engaging the target audience.
+
+.. seealso::
+   :doc:`marketing_automation/testing_running`
+
+Reporting
+=========
+
+A range of reporting metrics are available to measure the success of each campaign. The following
+are the reporting options in the *Reporting* menu of the *Marketing Automation* app:
+
+- *Link Tracker*: displays the metrics of links to track the number of clicks.
+- *Traces*: displays the results of all activities from all campaigns.
+- *Participants*: displays an overview of the participants of all campaigns.
+
+Additionally, each activity within the workflow of a campaign displays it's engagement metrics.
+
+.. seealso::
+   :doc:`marketing_automation/understanding_metrics`
 
 .. toctree::
    :titlesonly:
